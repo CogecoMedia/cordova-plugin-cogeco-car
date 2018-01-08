@@ -47,6 +47,8 @@ xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.a
     <source-file src="src/android/StationsProvider.java" target-dir="src/com/bhvr/android/auto" />
     <source-file src="src/android/MutableMediaMetadata.java" target-dir="src/com/bhvr/android/auto" />
     <source-file src="src/android/PlaybackManager.java" target-dir="src/com/bhvr/android/auto" />
+      <!-- Gradle Config -->
+    <source-file src="src/android/lib/build-extras.gradle" target-dir="src/.." />
     
     <!-- RESSOURCES FILES -->
     <resource-file src="src/android/res/automotive_app_desc.xml" target="res/xml/automotive_app_desc.xml" />
