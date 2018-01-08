@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin 
+id="cordova-plugin-android-auto" 
+version="0.0.1" 
+xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <name>AndroidAuto</name>
+    <js-module name="AndroidAuto" src="www/AndroidAuto.js">
+        <clobbers target="cordova.plugins.AndroidAuto" />
+    </js-module>
+     <repo>https://github.com/malekelkamel/cordova-plugin-android-auto.git</repo>
+     <issue>https://github.com/malekelkamel/cordova-plugin-android-auto/issues</issue>
+
+    <platform name="android">
+    <framework src="com.android.support:support-media-compat:27.0.2"/>
+    <framework src="com.android.support:support-core-utils:27.0.2"/>
+    <framework src="org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2"/>
+    <config-file parent="/*" target="res/xml/config.xml">
+        <feature name="AndroidAuto">
+            <param name="android-package" value="com.bhvr.android.auto" />
+        </feature>
+    </config-file>
+    <config-file parent="/*" target="AndroidManifest.xml">
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        <uses-permission android:name="android.permission.WAKE_LOCK" />
+    </config-file>
+    
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+		<service android:name="com.bhvr.android.auto.CogecoStreamingService" android:exported="true">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
+        <meta-data android:name="com.google.android.gms.car.application.theme"
+        android:resource="@style/CarTheme" />
+         <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
+        <meta-data
+            android:name="com.google.android.gms.car.notification.SmallIcon"
+            android:resource="@mipmap/icon" />
+	</config-file>
+
+    <source-file src="src/android/AndroidAuto.java" target-dir="src/com/bhvr/android/auto" />
+    <source-file src="src/android/CogecoStreamingService.java" target-dir="src/com/bhvr/android/auto" />
+    <source-file src="src/android/StationsProvider.java" target-dir="src/com/bhvr/android/auto" />
+    <source-file src="src/android/MutableMediaMetadata.java" target-dir="src/com/bhvr/android/auto" />
+    <source-file src="src/android/PlaybackManager.java" target-dir="src/com/bhvr/android/auto" />
+    
+    <!-- RESSOURCES FILES -->
+    <resource-file src="src/android/res/automotive_app_desc.xml" target="res/xml/automotive_app_desc.xml" />
+    <resource-file src="src/android/res/styles.xml" target="res/values/styles.xml" />
+
+    </platform>
+    
+</plugin>
