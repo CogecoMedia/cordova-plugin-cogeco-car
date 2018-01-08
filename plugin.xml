@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin 
-id="cordova-plugin-android-auto" 
+id="cordova-plugin-cogeco-car" 
 version="0.0.1" 
 xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <name>AndroidAuto</name>
+    <name>cordova-plugin-cogeco-car</name>
     <js-module name="AndroidAuto" src="www/AndroidAuto.js">
         <clobbers target="cordova.plugins.AndroidAuto" />
     </js-module>
-     <repo>https://github.com/malekelkamel/cordova-plugin-android-auto.git</repo>
-     <issue>https://github.com/malekelkamel/cordova-plugin-android-auto/issues</issue>
+     <repo>https://github.com/CogecoMedia/cordova-plugin-cogeco-car.git</repo>
+     <issue>https://github.com/CogecoMedia/cordova-plugin-cogeco-car/issues</issue>
 
     <platform name="android">
     <framework src="com.android.support:support-media-compat:27.0.2"/>

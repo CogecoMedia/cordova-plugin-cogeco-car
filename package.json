@@ -1,20 +1,20 @@
 {
-    "name": "cordova-plugin-android-auto",
+    "name": "cordova-plugin-cogeco-car",
     "version": "1.0.3",
     "cordova": {
-      "id": "cordova-plugin-android-auto",
+      "id": "cordova-plugin-cogeco-car",
       "platforms": [
         "android"
       ]
     },
     "repository": {
       "type": "git",
-      "url": "git+https://github.com/malekelkamel/cordova-plugin-android-auto.git"
+      "url": "git+https://github.com/CogecoMedia/cordova-plugin-cogeco-car.git"
     },
-    "description": "Android Auto support plugin",
+    "description": "Cordova Car support plugin - CogecoLive",
     "author": "elkamel",
     "license": "MIT",
     "bugs": {
-      "url": "https://github.com/malekelkamel/cordova-plugin-android-auto.git/issues"
+      "url": "https://github.com/CogecoMedia/cordova-plugin-cogeco-car.git/issues"
     }
   }
