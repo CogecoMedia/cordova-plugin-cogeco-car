@@ -15,6 +15,9 @@ xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.a
     <framework src="com.android.support:support-media-compat:27.0.2"/>
     <framework src="com.android.support:support-core-utils:27.0.2"/>
     <framework src="org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2"/>
+      <!-- Gradle Config -->
+      <framework src="src/android/lib/build-extras.gradle" custom="true" type="gradleReference"/>
+    
     <config-file parent="/*" target="res/xml/config.xml">
         <feature name="AndroidAuto">
             <param name="android-package" value="com.bhvr.android.auto" />
@@ -47,8 +50,6 @@ xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.a
     <source-file src="src/android/StationsProvider.java" target-dir="src/com/bhvr/android/auto" />
     <source-file src="src/android/MutableMediaMetadata.java" target-dir="src/com/bhvr/android/auto" />
     <source-file src="src/android/PlaybackManager.java" target-dir="src/com/bhvr/android/auto" />
-      <!-- Gradle Config -->
-    <source-file src="src/android/lib/build-extras.gradle" target-dir="src/.." />
     
     <!-- RESSOURCES FILES -->
     <resource-file src="src/android/res/automotive_app_desc.xml" target="res/xml/automotive_app_desc.xml" />
