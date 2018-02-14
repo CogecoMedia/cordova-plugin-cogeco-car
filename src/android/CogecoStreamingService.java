@@ -157,7 +157,7 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
                 @Override
                 public void onMusicCatalogReady(boolean success) {
                     if (success) {
-                        /***  Set Ckoi as Default Sation ****/
+                        /***  Set Ckoi as Default Station ****/
                         /*
                         currentMediaId = "1";
                         mSession.setActive(true);
