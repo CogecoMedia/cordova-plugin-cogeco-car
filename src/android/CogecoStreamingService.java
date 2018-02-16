@@ -266,7 +266,7 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
         public void onSkipToPrevious() {
             int currentIndex = Arrays.asList(stationsIds).indexOf(currentMediaId);
             if( currentIndex != 0){
-                currentIndex++;
+                currentIndex--;
                 currentMediaId = stationsIds[currentIndex];
                 mSession.setActive(true);
                 MediaMetadataCompat metadata =getMediametaData(currentMediaId);
