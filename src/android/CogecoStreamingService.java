@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaMetadata;
+import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.media.MediaBrowserCompat.MediaItem;
 import android.support.v4.media.MediaBrowserServiceCompat;
@@ -17,6 +19,7 @@ import android.support.v4.media.session.MediaSessionCompat;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +31,9 @@ import static android.media.MediaMetadata.METADATA_KEY_MEDIA_URI;
 import static android.media.MediaMetadata.METADATA_KEY_TITLE;
 import android.media.MediaPlayer;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.text.TextUtils;
+
+import com.google.zxing.common.StringUtils;
 
 /**
  * This class provides a MediaBrowser through a service. It exposes the media library to a browsing
@@ -87,7 +93,9 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
     private StationsProvider mStationsProvider;
     private PlaybackManager mPlayback;
     private List<MediaMetadataCompat>  stations;
-    private String currentMediaId;
+    private String currentMediaId = "1";
+    private String[]  stationsIds = {"7", "8", "9"
+            , "4", "19", "13", "1", "6", "17", "5", "16", "14", "10", "13", "12", "3", "11", "2"};;
     public static final String EXTRA_METADATA_ADVERTISEMENT =
             "android.media.metadata.ADVERTISEMENT";
 
@@ -102,11 +110,12 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
                 MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
 
 
+
+
         IntentFilter filter = new IntentFilter("com.google.android.gms.car.media.STATUS");
         mStationsProvider = new StationsProvider();
 
         final MediaPlayer mediaPlayer = new MediaPlayer();
-
 
         BroadcastReceiver receiver = new BroadcastReceiver() {
 
@@ -157,19 +166,7 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
                 @Override
                 public void onMusicCatalogReady(boolean success) {
                     if (success) {
-                        /***  Set Ckoi as Default Station ****/
-                        /*
-                        currentMediaId = "1";
-                        mSession.setActive(true);
-                        MediaMetadataCompat metadata =getMediametaData("1");
-                        mSession.setMetadata(metadata);
-                        mPlayback.setMediaUrl(getMediaUrl("1"));
-                        mPlayback.play(metadata);
-                       
-                        /* *********   */
-
                         loadChildrenImpl(parentMediaId, result);
-
                     } else {
                         result.sendResult(new ArrayList<MediaItem>());
 
@@ -253,12 +250,30 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
 
         @Override
         public void onSkipToNext() {
-            // Feature Disabled
+            int currentIndex = Arrays.asList(stationsIds).indexOf(currentMediaId);
+            if( currentIndex != (stationsIds.length - 1)){
+                currentIndex++;
+                currentMediaId = stationsIds[currentIndex];
+                mSession.setActive(true);
+                MediaMetadataCompat metadata =getMediametaData(currentMediaId);
+                mSession.setMetadata(metadata);
+                mPlayback.setMediaUrl(getMediaUrl(currentMediaId));
+                mPlayback.play(metadata);
+            }
         }
 
         @Override
         public void onSkipToPrevious() {
-            // Feature Disabled
+            int currentIndex = Arrays.asList(stationsIds).indexOf(currentMediaId);
+            if( currentIndex != 0){
+                currentIndex++;
+                currentMediaId = stationsIds[currentIndex];
+                mSession.setActive(true);
+                MediaMetadataCompat metadata =getMediametaData(currentMediaId);
+                mSession.setMetadata(metadata);
+                mPlayback.setMediaUrl(getMediaUrl(currentMediaId));
+                mPlayback.play(metadata);
+            }
         }
 
         @Override
@@ -267,7 +282,22 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
 
         @Override
         public void onPlayFromSearch(final String query, final Bundle extras) {
-            System.out.println("Play");
+            MediaMetadataCompat result = null;
+
+            if (TextUtils.isEmpty(query)) {
+
+                mSession.setActive(true);
+                MediaMetadataCompat metadata = getMediametaData(currentMediaId);
+                mSession.setMetadata(metadata);
+                mPlayback.setMediaUrl(getMediaUrl(currentMediaId));
+                mPlayback.play(metadata);
+
+
+            } else {
+                String mediaFocus = extras.getString(MediaStore.EXTRA_MEDIA_FOCUS);
+                String title = (String) extras.get("query");
+            }
+
         }
     }
     private MediaMetadataCompat getMediametaData(String id) {
@@ -303,4 +333,23 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
         }
         return url;
     }
+    private MediaMetadataCompat getStationByName(String name) {
+        MediaMetadataCompat metaData = null;
+        ConcurrentMap<String, List<MediaMetadataCompat>> stationsList = mStationsProvider.getStationsList();
+        Iterator<Map.Entry<String, List<MediaMetadataCompat>>> iterator = stationsList.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, List<MediaMetadataCompat>> station = iterator.next();
+            List<MediaMetadataCompat>  tmpStations = station.getValue();
+            for(int i=0; i< tmpStations.size(); i++) {
+                MediaMetadataCompat st = tmpStations.get(i);
+                System.out.println(st.getString(METADATA_KEY_TITLE));
+                if(st.getString(METADATA_KEY_TITLE).contains(name)){
+                    metaData =  st;
+                }
+            }
+        }
+        return metaData;
+    }
+
+
 }
