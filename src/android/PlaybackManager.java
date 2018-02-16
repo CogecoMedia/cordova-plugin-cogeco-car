@@ -178,9 +178,9 @@ public class PlaybackManager implements AudioManager.OnAudioFocusChangeListener,
         long actions =
                 PlaybackStateCompat.ACTION_PLAY
                         | PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID
-                        | PlaybackStateCompat.ACTION_PLAY_FROM_SEARCH;
-                      //  | PlaybackStateCompat.ACTION_SKIP_TO_NEXT
-                     //   | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS;
+                        | PlaybackStateCompat.ACTION_PLAY_FROM_SEARCH
+                        | PlaybackStateCompat.ACTION_SKIP_TO_NEXT
+                        | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS;
         if (isPlaying()) {
             actions |= PlaybackStateCompat.ACTION_PAUSE;
         }
