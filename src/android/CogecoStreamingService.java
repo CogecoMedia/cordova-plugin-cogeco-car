@@ -266,7 +266,7 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
         public void onSkipToPrevious() {
             int currentIndex = Arrays.asList(stationsIds).indexOf(currentMediaId);
             if( currentIndex != 0){
-                currentIndex++;
+                currentIndex--;
                 currentMediaId = stationsIds[currentIndex];
                 mSession.setActive(true);
                 MediaMetadataCompat metadata =getMediametaData(currentMediaId);
@@ -278,6 +278,11 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
 
         @Override
         public void onCustomAction(String action, Bundle extras) {
+            mSession.setActive(true);
+            MediaMetadataCompat metadata =getMediametaData(currentMediaId);
+            mSession.setMetadata(metadata);
+            mPlayback.setMediaUrl(getMediaUrl(currentMediaId));
+            mPlayback.play(metadata);
         }
 
         @Override
@@ -296,6 +301,11 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
             } else {
                 String mediaFocus = extras.getString(MediaStore.EXTRA_MEDIA_FOCUS);
                 String title = (String) extras.get("query");
+                mSession.setActive(true);
+                MediaMetadataCompat metadata = getMediametaData(currentMediaId);
+                mSession.setMetadata(metadata);
+                mPlayback.setMediaUrl(getMediaUrl(currentMediaId));
+                mPlayback.play(metadata);
             }
 
         }
