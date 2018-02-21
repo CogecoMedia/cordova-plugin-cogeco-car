@@ -233,9 +233,7 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
 
 		@Override
 		public void onStop() {
-
-			mPlayback.stop();
-			mSession.setActive(false);
+			stopRadio();
 		}
 
 		@Override
@@ -350,6 +348,10 @@ public class CogecoStreamingService extends MediaBrowserServiceCompat {
 			}
 		}
 		return metaData;
-	}
+    }
+    
+    private void stopRadio() {
+        mPlayback.pause();
+    }
 
 }
