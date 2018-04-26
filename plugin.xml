@@ -37,9 +37,9 @@ xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.a
         </service>
         <meta-data android:name="com.google.android.gms.car.application.theme"
         android:resource="@style/CarTheme" />
-         <!-- <meta-data
+           <meta-data
             android:name="com.google.android.gms.car.application"
-            android:resource="@xml/automotive_app_desc" /> -->
+            android:resource="@xml/automotive_app_desc" />  
         <meta-data
             android:name="com.google.android.gms.car.notification.SmallIcon"
             android:resource="@mipmap/icon" />
@@ -52,7 +52,7 @@ xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.a
     <source-file src="src/android/PlaybackManager.java" target-dir="src/com/bhvr/android/auto" />
 
     <!-- RESSOURCES FILES -->
-    <!-- <resource-file src="src/android/res/automotive_app_desc.xml" target="res/xml/automotive_app_desc.xml" /> -->
+      <resource-file src="src/android/res/automotive_app_desc.xml" target="res/xml/automotive_app_desc.xml" />  
     <resource-file src="src/android/res/styles.xml" target="res/values/styles.xml" />
 
     </platform>
